@@ -22,3 +22,14 @@ Nashorn, JavaScript Engine − A Java-based engine to execute JavaScript code.
 ForEach() Method - In order to iterate over the Collection Framework, Java SE8 offers a new method called forEach which is defined in the Iterable interface. ForEach() loop can be used in a collection class that extends the interface Iterable. Since this method inputs a single parameter, a lambda expression can also be passed as a parameter.
 
 StringJoiner - A new final class StringJoiner has been added to Java 8 in the java. util package. A sequence of characters can be constructed separated by delimiters like comma (,), hyphen (-), etc.
+
+## Security Enhancements
+In addition to these features, several other Security Enhancements are also done to Java SE8. They are:
+
+The Public Key Cryptography Standards 11 (PKCS) has been extended to comprise 64-bit supports for the Operating system, Windows.
+
+For UNIX platforms, two new implementations have been presented. It offers blocking and non-blocking behavior.
+
+In SunJCE provider, AES and PBE algorithms such as PBEWithSHA256AndAES_128 and PBEWithSHA512AndAES_256 are also added.
+
+Java SE 8 supports the Server Name Indication (SNI) extension that extends the TLS/SSL protocols to connect during handshaking for supporting server applications.
