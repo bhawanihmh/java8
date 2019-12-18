@@ -33,3 +33,15 @@ For UNIX platforms, two new implementations have been presented. It offers block
 In SunJCE provider, AES and PBE algorithms such as PBEWithSHA256AndAES_128 and PBEWithSHA512AndAES_256 are also added.
 
 Java SE 8 supports the Server Name Indication (SNI) extension that extends the TLS/SSL protocols to connect during handshaking for supporting server applications.
+
+## Functional interfaces
+Functional interfaces have a single functionality to exhibit. For example, a Comparable interface with a single method ‘compareTo’ is used for comparison purpose. Java 8 has defined a lot of functional interfaces to be used extensively in lambda expressions. Following is the list of functional interfaces defined in java.util.Function package.
+
+### Consumer<T>
+Represents an operation that accepts a single input argument and returns no result.
+### Supplier<T>
+Represents a supplier of results.
+### Function<T,R>
+Represents a function that accepts one argument and produces a result.
+### Predicate<T>
+Represents a predicate (Boolean-valued function) of one argument.
