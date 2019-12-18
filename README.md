@@ -45,3 +45,7 @@ Represents a supplier of results.
 Represents a function that accepts one argument and produces a result.
 ### Predicate<T>
 Represents a predicate (Boolean-valued function) of one argument.
+### BinaryOperator<T>
+Represents an operation upon two operands of the same type, producing a result of the same type as the operands.
+### UnaryOperator<T>
+Represents an operation on a single operand that produces a result of the same type as its operand.
