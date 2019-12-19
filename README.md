@@ -193,6 +193,7 @@ toArray<br>
 Employee[] employees = empList.stream().toArray(Employee[]::new);
 ```
 reduce<br>
+A reduction operation (also called as fold) takes a sequence of input elements and combines them into a single summary result by repeated application of a combining operation. We already saw few reduction operations like findFirst(), min() and max().<br>
 ```java
     Double sumSal = empList.stream()
       .map(Employee::getSalary)
@@ -237,6 +238,85 @@ findFirst<br>
       .orElse(null);
 ```
 findAny<br>
+### Creation
+The most common way of creating an IntStream is to call mapToInt() on an existing stream:
+```java
+Integer latestEmpId = empList.stream()
+      .mapToInt(Employee::getId)
+      .max()
+      .orElseThrow(NoSuchElementException::new);
+ //We can also use IntStream.of() for creating the IntStream:
+ IntStream.of(1, 2, 3);
+ // or IntStream.range():
+ IntStream.range(10, 20) // which creates IntStream of numbers 10 to 19.
+ ```
+ ### Specialized Operations
+ Specialized streams provide additional operations as compared to the standard Stream – which are quite convenient when dealing with numbers.<br>
+For example sum(), average(), range() etc:<br>
+```java
+Double avgSal = empList.stream()
+      .mapToDouble(Employee::getSalary)
+      .average()
+      .orElseThrow(NoSuchElementException::new);
+```
+joining<br>
+```java
+//Collectors.joining() will insert the delimiter between the two String elements of the stream. It internally uses a 
+// java.util.StringJoiner to perform the joining operation.
+String empNames = empList.stream()
+      .map(Employee::getName)
+      .collect(Collectors.joining(", "))
+      .toString();
+```
+toSet<br>
+```java
+//We can also use toSet() to get a set out of stream elements:
+Set<String> empNames = empList.stream()
+     .map(Employee::getName)
+     .collect(Collectors.toSet());
+```
+toCollection<br>
+```java
+//We can use Collectors.toCollection() to extract the elements into any other collection by passing in a Supplier<Collection>. 
+//We can also use a constructor reference for the Supplier:
+Vector<String> empNames = empList.stream()
+    .map(Employee::getName)
+    .collect(Collectors.toCollection(Vector::new));
+```
+summarizingDouble<br>
+```java
+//summarizingDouble() is another interesting collector – which applies a double-producing 
+//mapping function to each input element and returns a special class containing statistical 
+//information for the resulting values:
+DoubleSummaryStatistics stats = empList.stream()
+  .collect(Collectors.summarizingDouble(Employee::getSalary));
+  
+//summaryStatistics() can be used to generate similar result when we’re using one of the specialized streams:
+	DoubleSummaryStatistics stats = empList.stream()
+	.mapToDouble(Employee::getSalary)
+	.summaryStatistics();
+```
+partitioningBy<br>
+```java
+//We can partition a stream into two – based on whether the elements satisfy certain criteria or not.
+//Let’s split our List of numerical data, into even and ods:
+	List<Integer> intList = Arrays.asList(2, 4, 5, 6, 8);
+	Map<Boolean, List<Integer>> isEven = intList.stream().collect(
+	Collectors.partitioningBy(i -> i % 2 == 0));
+```
+groupingBy<br>
+```java
+//groupingBy() offers advanced partitioning – where we can partition the stream into more than just two groups.
+//It takes a classification function as its parameter. This classification function is applied to each element of the stream.
+//The value returned by the function is used as a key to the map that we get from the groupingBy collector:
+	Map<Character, List<Employee>> groupByAlphabet = empList.stream().collect(
+	Collectors.groupingBy(e -> new Character(e.getName().charAt(0))));
+```
+mapping<br>
+```java
+//groups elements of the stream with the use of a Map.
+
+
 
 ## Optional Class
 Optional is a container object used to contain not-null objects. Optional object is used to represent null with absent value. This class has various utility methods to facilitate code to handle values as ‘available’ or ‘not available’ instead of checking null values.
