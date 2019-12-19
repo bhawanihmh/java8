@@ -107,31 +107,135 @@ stream()
     .intemediateOperationN()
     .terminalOperation();
 ```
+#### Stream Creation
+```java
+//Let’s first obtain a stream from an existing array:
+private static Employee[] arrayOfEmps = {
+    new Employee(1, "Jeff Bezos", 100000.0), 
+    new Employee(2, "Bill Gates", 200000.0), 
+    new Employee(3, "Mark Zuckerberg", 300000.0)
+};
+Stream.of(arrayOfEmps);
+
+//We can also obtain a stream from an existing list:
+private static List<Employee> empList = Arrays.asList(arrayOfEmps);
+empList.stream();
+
+//Note that Java 8 added a new stream() method to the Collection interface.
+//And we can create a stream from individual objects using Stream.of():
+Stream.of(arrayOfEmps[0], arrayOfEmps[1], arrayOfEmps[2]);
+
+//Or simply using Stream.builder():
+Stream.Builder<Employee> empStreamBuilder = Stream.builder();
+empStreamBuilder.accept(arrayOfEmps[0]);
+empStreamBuilder.accept(arrayOfEmps[1]);
+empStreamBuilder.accept(arrayOfEmps[2]);
+Stream<Employee> empStream = empStreamBuilder.build();
+```
+
 ### Intermediate Operations
 filter(Predicate<T>)<br>
+```java
+    Integer[] empIds = { 1, 2, 3, 4 };
+    List<Employee> employees = Stream.of(empIds)
+      .map(employeeRepository::findById)
+      .filter(e -> e != null)
+      .filter(e -> e.getSalary() > 200000)
+      .collect(Collectors.toList());
+```
 map(Function<T>)<br>
+```java
+    Integer[] empIds = { 1, 2, 3 };
+    List<Employee> employees = Stream.of(empIds)
+      .map(employeeRepository::findById)
+      .collect(Collectors.toList());
+```
 flatmap(Function<T>)<br>
+```java
+    List<List<String>> namesNested = Arrays.asList( 
+      Arrays.asList("Jeff", "Bezos"), 
+      Arrays.asList("Bill", "Gates"), 
+      Arrays.asList("Mark", "Zuckerberg"));
+
+    List<String> namesFlatStream = namesNested.stream()
+      .flatMap(Collection::stream)
+      .collect(Collectors.toList());
+```
 sorted(Comparator<T>)<br>
+```java
+List<Employee> employees = empList.stream()
+      .sorted((e1, e2) -> e1.getName().compareTo(e2.getName()))
+      .collect(Collectors.toList());
+```
 peek(Consumer<T>)<br>
+```java
+   empList.stream()
+      .peek(e -> e.salaryIncrement(10.0))
+      .peek(System.out::println)
+      .collect(Collectors.toList());
+```
 distinct()<br>
+```java
+List<Integer> intList = Arrays.asList(2, 5, 3, 2, 4, 3);
+List<Integer> distinctIntList = intList.stream().distinct().collect(Collectors.toList());
+```
 limit(long n)<br>
 skip(long n)<br>
 	
 ### Terminal Operations
 forEach<br>
+```java
+empList.stream().forEach(e -> e.salaryIncrement(10.0));
+```
 forEachOrdered<br>
 toArray<br>
+```java
+Employee[] employees = empList.stream().toArray(Employee[]::new);
+```
 reduce<br>
+```java
+    Double sumSal = empList.stream()
+      .map(Employee::getSalary)
+      .reduce(0.0, Double::sum);
+```
 collect<br>
+```java
+List<Employee> employees = empList.stream().collect(Collectors.toList());
+```
 min<br>
+```java
+Employee firstEmp = empList.stream()
+      .min((e1, e2) -> e1.getId() - e2.getId())
+      .orElseThrow(NoSuchElementException::new);
+```
 max<br>
+```java
+Employee maxSalEmp = empList.stream()
+      .max(Comparator.comparing(Employee::getSalary))
+      .orElseThrow(NoSuchElementException::new);
+```
 count<br>
 
 ### Short Circuiting Terminal Operations
 anyMatch<br>
 allMatch<br>
 noneMatch<br>
+```java
+    List<Integer> intList = Arrays.asList(2, 4, 5, 6, 8);
+    boolean allEven = intList.stream().allMatch(i -> i % 2 == 0);
+    boolean oneEven = intList.stream().anyMatch(i -> i % 2 == 0);
+    boolean noneMultipleOfThree = intList.stream().noneMatch(i -> i % 3 == 0);
+```
 findFirst<br>
+```java
+    Integer[] empIds = { 1, 2, 3, 4 };
+    Employee employee = Stream.of(empIds)
+      .map(employeeRepository::findById)
+      .filter(e -> e != null)
+      .filter(e -> e.getSalary() > 100000)
+      .findFirst()
+      .orElse(null);
+```
 findAny<br>
 
 ## Optional Class
