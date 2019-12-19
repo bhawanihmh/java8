@@ -90,3 +90,4 @@ Some Method & Description:
 5. boolean isPresent() = Returns true if there is a value present, otherwise false.
 6. static <T> Optional<T> of(T value) = Returns an Optional with the specified present non-null value.
 7. static <T> Optional<T> ofNullable(T value) = Returns an Optional describing the specified value, if non-null, otherwise returns an empty Optional etc.
+8. T orElse(T other) = Returns the value if present, otherwise returns other.
