@@ -315,8 +315,102 @@ groupingBy<br>
 mapping<br>
 ```java
 //groups elements of the stream with the use of a Map.
+	Map<Character, List<Integer>> idGroupedByAlphabet = empList.stream().collect(
+	Collectors.groupingBy(e -> new Character(e.getName().charAt(0)),
+	Collectors.mapping(Employee::getId, Collectors.toList())));
+//Here mapping() maps the stream element Employee into just the employee id – 
+//which is an Integer – using the getId() mapping function. 
+//These ids are still grouped based on the initial character of employee first name.
+```
+reducing<br>
+```java
+//reducing() is similar to reduce() – which we explored before. 
+//It simply returns a collector which performs a reduction of its input elements:
 
+	Double percentage = 10.0;
+	Double salIncrOverhead = empList.stream().collect(Collectors.reducing(
+	0.0, e -> e.getSalary() * percentage / 100, (s1, s2) -> s1 + s2));
+//Here reducing() gets the salary increment of each employee and returns the sum.
+//reducing() is most useful when used in a multi-level reduction, downstream of groupingBy() or partitioningBy(). 
+//To perform a simple reduction on a stream, use reduce() instead.
+//For example, let’s see how we can use reducing() with groupingBy():	
+	Comparator<Employee> byNameLength = Comparator.comparing(Employee::getName);
+	Map<Character, Optional<Employee>> longestNameByAlphabet = empList.stream().collect(
+	Collectors.groupingBy(e -> new Character(e.getName().charAt(0)),
+	Collectors.reducing(BinaryOperator.maxBy(byNameLength))));
+```
+### Parallel Streams
+Using the support for parallel streams, we can perform stream operations in parallel without having to write any boilerplate code; we just have to designate the stream as parallel:<br>
+```java
+   Employee[] arrayOfEmps = {
+      new Employee(1, "Jeff Bezos", 100000.0), 
+      new Employee(2, "Bill Gates", 200000.0), 
+      new Employee(3, "Mark Zuckerberg", 300000.0)
+    };
+    List<Employee> empList = Arrays.asList(arrayOfEmps);
+    empList.stream().parallel().forEach(e -> e.salaryIncrement(10.0));   
+```
+As is the case with writing multi-threaded code, we need to be aware of few things while using parallel streams:<br>
 
+We need to ensure that the code is thread-safe. Special care needs to be taken if the operations performed in parallel modifies shared data.<br>
+We should not use parallel streams if the order in which operations are performed or the order returned in the output stream matters. For example operations like findFirst() may generate the different result in case of parallel streams.<br>
+Also, we should ensure that it is worth making the code execute in parallel. Understanding the performance characteristics of the operation in particular, but also of the system as a whole – is naturally very important here.<br>
+
+### Infinite Streams
+Sometimes, we might want to perform operations while the elements are still getting generated. We might not know beforehand how many elements we’ll need. Unlike using list or map, where all the elements are already populated, we can use infinite streams, also called as unbounded streams.<br>
+There are two ways to generate infinite streams:<br>
+1. generate <br>
+We provide a Supplier to generate() which gets called whenever new stream elements need to be generated:<br>
+```java
+Stream.generate(Math::random)
+      .limit(5)
+      .forEach(System.out::println);
+```
+Here, we pass Math::random() as a Supplier, which returns the next random number.<br>
+
+With infinite streams, we need to provide a condition to eventually terminate the processing. One common way of doing this is using limit(). In above example, we limit the stream to 5 random numbers and print them as they get generated.<br>
+
+Please note that the Supplier passed to generate() could be stateful and such stream may not produce the same result when used in parallel.<br>
+
+2. iterate<br>
+iterate() takes two parameters: an initial value, called seed element and a function which generates next element using the previous value. iterate(), by design, is stateful and hence may not be useful in parallel streams:<br>
+```java
+    Stream<Integer> evenNumStream = Stream.iterate(2, i -> i * 2);
+    List<Integer> collect = evenNumStream
+      .limit(5)
+      .collect(Collectors.toList());
+```
+Here, we pass 2 as the seed value, which becomes the first element of our stream. This value is passed as input to the lambda, which returns 4. This value, in turn, is passed as input in the next iteration.<br>
+This continues until we generate the number of elements specified by limit() which acts as the terminating condition.<br>
+
+### File Operations
+1. File Write Operation <br>
+```java
+   String[] words = {
+      "hello", 
+      "refer",
+      "world",
+      "level"
+    };
+    
+    try (PrintWriter pw = new PrintWriter(
+      Files.newBufferedWriter(Paths.get(fileName)))) {
+        Stream.of(words).forEach(pw::println);
+    }
+//Here we use forEach() to write each element of the stream into the file by calling PrintWriter.println().    
+```
+2. File Read Operation <br>
+```java
+List<String> str = getPalindrome(Files.lines(Paths.get(fileName)), 5);
+private List<String> getPalindrome(Stream<String> stream, int length) {
+    return stream.filter(s -> s.length() == length)
+      .filter(s -> s.compareToIgnoreCase(
+        new StringBuilder(s).reverse().toString()) == 0)
+      .collect(Collectors.toList());
+}
+//Here Files.lines() returns the lines from the file as a Stream which is consumed by the getPalindrome() for further processing.
+//getPalindrome() works on the stream, completely unaware of how the stream was generated. 
+```
 
 ## Optional Class
 Optional is a container object used to contain not-null objects. Optional object is used to represent null with absent value. This class has various utility methods to facilitate code to handle values as ‘available’ or ‘not available’ instead of checking null values.
