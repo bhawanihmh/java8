@@ -79,7 +79,15 @@ With Java 8, Collection interface has two methods to generate a Stream.
 
 stream() − Returns a sequential stream considering collection as its source.
 parallelStream() − Returns a parallel Stream considering collection as its source.
-
+```java
+//distinct string
+		List<String> names = Arrays.asList("abc", "abc", "bc", "efg", "abcd","bc", "jkl","efg");
+		names = names.stream().distinct().collect(Collectors.toList());
+		System.out.println("distinct names: " + names);
+            
+//sort using java 8
+            Collections.sort(names, (s1, s2) -> s1.compareTo(s2));
+```
 ## Optional Class
 Optional is a container object used to contain not-null objects. Optional object is used to represent null with absent value. This class has various utility methods to facilitate code to handle values as ‘available’ or ‘not available’ instead of checking null values.
 Some Method & Description: 
