@@ -57,9 +57,9 @@ Lambda expression eliminates the need of anonymous class and gives a very simple
 ## Method references
 Method references help to point to methods by their names. A method reference is described using :: (double colon) symbol. A method reference can be used to point the following types of methods −
 
-Static methods
-Instance methods
-Constructors using new operator (TreeSet::new)
+Static methods<br>
+Instance methods<br>
+Constructors using new operator (TreeSet::new)<br>
 
 ## Default Methods
 Java 8 introduces a new concept of default method implementation in interfaces. This capability is added for backward compatibility so that old interfaces can be used to leverage the lambda expression capability of Java 8.
@@ -67,11 +67,10 @@ Java 8 introduces a new concept of default method implementation in interfaces. 
 For example, ‘List’ or ‘Collection’ interfaces do not have ‘forEach’ method declaration. Thus, adding such method will simply break the collection framework implementations. Java 8 introduces default method so that List/Collection interface can have a default implementation of forEach method, and the class implementing these interfaces need not implement the same.
 
 Multiple Defaults
-With default functions in interfaces, there is a possibility that a class is implementing two interfaces with same default methods. The following code explains how this ambiguity can be resolved.
+With default functions in interfaces, there is a possibility that a class is implementing two interfaces with same default methods. The following code explains how this ambiguity can be resolved.<br>
 
-First solution is to create an own method that overrides the default implementation.
-
-Second solution is to call the default method of the specified interface using super.
+First solution is to create an own method that overrides the default implementation.<br>
+Second solution is to call the default method of the specified interface using super.<br>
 
 ## What is Stream?
 Stream represents a sequence of objects from a source, which supports aggregate operations. Following are the characteristics of a Stream −
