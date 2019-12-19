@@ -91,3 +91,19 @@ Some Method & Description:
 6. static <T> Optional<T> of(T value) = Returns an Optional with the specified present non-null value.
 7. static <T> Optional<T> ofNullable(T value) = Returns an Optional describing the specified value, if non-null, otherwise returns an empty Optional etc.
 8. T orElse(T other) = Returns the value if present, otherwise returns other.
+
+##  Nashorn JavaScript
+With Java 8, Nashorn, a much improved javascript engine is introduced, to replace the existing Rhino. Nashorn provides 2 to 10 times better performance, as it directly compiles the code in memory and passes the bytecode to JVM. Nashorn uses invoke dynamics feature, introduced in Java 7 to improve performance.
+### jjs
+For Nashorn engine, JAVA 8 introduces a new command line tool, jjs, to execute javascript codes at console.
+Command = C:\JAVA>jjs sample.js
+Calling JavaScript from Java : Using ScriptEngineManager, JavaScript code can be called and interpreted in Java.
+Calling Java from JavaScript : sample.js:
+      var BigDecimal = Java.type('java.math.BigDecimal');
+      function calculate(amount, percentage) {
+         var result = new BigDecimal(amount).multiply(new BigDecimal(percentage)).divide(
+            new BigDecimal("100"), 2, BigDecimal.ROUND_HALF_EVEN);
+         return result.toPlainString();
+      }
+      var result = calculate(568000000000000000023,13.9);
+      print(result);
