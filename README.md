@@ -72,9 +72,30 @@ t– the input argument<br>
 ```
 using addThen() :  modify.andThen(dispList).accept(list); 
 ### Supplier<T>
-Represents a supplier of results.
+It represents a function which does not take in any argument but produces a value of type T.<br>
+Syntex: T get()  <br>
+Returns: This method returns a value of type T.<br>
+```java
+        // This function returns a random value. 
+        Supplier<Double> randomValue = () -> Math.random(); 
+  
+        // Print the random value using get() 
+        System.out.println(randomValue.get()); 
+```
 ### Function<T,R>
-Represents a function that accepts one argument and produces a result.
+It represents a function which takes in one argument and produces a result.<br>
+Syntex : R apply(T t) <br>
+Parameters: This method takes in only one parameter t which is the function argument <br>
+Returns: This method returns the function result which is of type R. <br>
+```java
+        // Function which takes in a number 
+        // and returns half of it 
+        Function<Integer, Double> half = a -> a / 2.0; 
+  
+        // apply the function to get the result 
+        System.out.println(half.apply(10)); 
+```
+
 ### Predicate<T>
 Represents a predicate (Boolean-valued function) of one argument.
 ### BinaryOperator<T>
