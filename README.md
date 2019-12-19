@@ -54,6 +54,13 @@ Represents an operation on a single operand that produces a result of the same t
 Lambda expressions are used primarily to define inline implementation of a functional interface, i.e., an interface with a single method only.
 Lambda expression eliminates the need of anonymous class and gives a very simple yet powerful functional programming capability to Java.
 
+## Method references
+Method references help to point to methods by their names. A method reference is described using :: (double colon) symbol. A method reference can be used to point the following types of methods −
+
+Static methods
+Instance methods
+Constructors using new operator (TreeSet::new)
+
 ## Default Methods
 Java 8 introduces a new concept of default method implementation in interfaces. This capability is added for backward compatibility so that old interfaces can be used to leverage the lambda expression capability of Java 8.
 
