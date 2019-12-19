@@ -99,6 +99,7 @@ For Nashorn engine, JAVA 8 introduces a new command line tool, jjs, to execute j
 Command = C:\JAVA>jjs sample.js
 Calling JavaScript from Java : Using ScriptEngineManager, JavaScript code can be called and interpreted in Java.
 Calling Java from JavaScript : sample.js:<br>
+```java
       var BigDecimal = Java.type('java.math.BigDecimal');<br>
       function calculate(amount, percentage) {<br>
          var result = new BigDecimal(amount).multiply(new BigDecimal(percentage)).divide(<br>
@@ -107,3 +108,4 @@ Calling Java from JavaScript : sample.js:<br>
       }<br>
       var result = calculate(568000000000000000023,13.9);<br>
       print(result);<br>
+```
