@@ -50,6 +50,10 @@ Represents an operation upon two operands of the same type, producing a result o
 ### UnaryOperator<T>
 Represents an operation on a single operand that produces a result of the same type as its operand.
 
+## Lambda expressions
+Lambda expressions are used primarily to define inline implementation of a functional interface, i.e., an interface with a single method only.
+Lambda expression eliminates the need of anonymous class and gives a very simple yet powerful functional programming capability to Java.
+
 ## Default Methods
 Java 8 introduces a new concept of default method implementation in interfaces. This capability is added for backward compatibility so that old interfaces can be used to leverage the lambda expression capability of Java 8.
 
