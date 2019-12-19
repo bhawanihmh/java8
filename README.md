@@ -79,3 +79,14 @@ With Java 8, Collection interface has two methods to generate a Stream.
 
 stream() − Returns a sequential stream considering collection as its source.
 parallelStream() − Returns a parallel Stream considering collection as its source.
+
+## Optional Class
+Optional is a container object used to contain not-null objects. Optional object is used to represent null with absent value. This class has various utility methods to facilitate code to handle values as ‘available’ or ‘not available’ instead of checking null values.
+Some Method & Description: 
+1. static <T> Optional<T> empty()  = Returns an empty Optional instance.
+2. boolean equals(Object obj) = Indicates whether some other object is "equal to" this Optional.
+3. T get() = If a value is present in this Optional, returns the value, otherwise throws NoSuchElementException.
+4. void ifPresent(Consumer<? super T> consumer) = If a value is present, it invokes the specified consumer with the value, otherwise does nothing.
+5. boolean isPresent() = Returns true if there is a value present, otherwise false.
+6. static <T> Optional<T> of(T value) = Returns an Optional with the specified present non-null value.
+7. static <T> Optional<T> ofNullable(T value) = Returns an Optional describing the specified value, if non-null, otherwise returns an empty Optional etc.
