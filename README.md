@@ -98,6 +98,42 @@ parallelStream() − Returns a parallel Stream considering collection as its sou
 //sort using java 8
             Collections.sort(names, (s1, s2) -> s1.compareTo(s2));
 ```
+```java
+Syntex Eg:
+stream()
+    .intemediateOperation1()
+    .intemediateOperation2()
+    ...
+    .intemediateOperationN()
+    .terminalOperation();
+```
+### Intermediate Operations
+filter(Predicate<T>)<br>
+map(Function<T>)<br>
+flatmap(Function<T>)<br>
+sorted(Comparator<T>)<br>
+peek(Consumer<T>)<br>
+distinct()<br>
+limit(long n)<br>
+skip(long n)<br>
+	
+### Terminal Operations
+forEach<br>
+forEachOrdered<br>
+toArray<br>
+reduce<br>
+collect<br>
+min<br>
+max<br>
+count<br>
+
+### Short Circuiting Terminal Operations
+anyMatch<br>
+allMatch<br>
+noneMatch<br>
+findFirst<br>
+findAny<br>
+
 ## Optional Class
 Optional is a container object used to contain not-null objects. Optional object is used to represent null with absent value. This class has various utility methods to facilitate code to handle values as ‘available’ or ‘not available’ instead of checking null values.
 Some Method & Description: 
