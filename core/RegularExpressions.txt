@@ -1,1 +1,12 @@
-server_regex = '^[a-zA-Z0-9- @,;()&%.?:/\\\\\n\\\\\r]*$'
+1	ALPHA_HYPHN = 	"(?=.*\S)[a-zA-Z-]*";
+2	ALPHANUM_SPL_CHAR =	"^[a-zA-Z0-9- @,;()&%.?:/\\\\\n\\\\\r]*$";
+3	FLEXI_CHARS_3 =	"[\$#\+{}():\?\.,\-/~@&'\"a-zA-Z0-9_ ]+$";
+4	ALPHA =	"^[A-Za-z]*$";
+5	ALPHASPACE =	"^[a-zA-z\s]*$";
+6	ALPHANUM =	"^[a-zA-Z0-9]*$";
+7	NUMERIC =	"^[0-9]*$";
+8	AMOUNT =	"^(0*[1-9][0-9]*(\.[0-9]+)?|0+\.[0-9]*[1-9][0-9]*)$";
+9	DATE_DDMMYYYY =	"dd/MM/yyyy";
+10	ALPHANUM_HYPHN =	"(?=.*\S)[a-zA-Z0-9-]*";
+11	ALPHANUM_HYP_UNDRSCR_DOT =	"(?=.*\S)[a-zA-Z0-9-_.]*";
+12	ALPHA_UNDRSCR =	"(?=.*\S)[a-zA-Z_]*";
