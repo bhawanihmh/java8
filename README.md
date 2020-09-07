@@ -201,7 +201,64 @@ List<String> namesWithA = names.stream()
   .filter(name -> name.startsWith("A"))
   .collect(Collectors.toList());
 ```
+The Functional Interface PREDICATE is defined in the java.util.Function package. It improves manageability of code, helps in unit-testing them separately, and contain some methods like:
 
+isEqual(Object targetRef) : Returns a predicate that tests if two arguments are equal according to Objects.equals(Object, Object).
+```
+static  Predicate isEqual(Object targetRef)
+Returns a predicate that tests if two arguments are 
+equal according to Objects.equals(Object, Object).
+T : the type of arguments to the predicate
+Parameters:
+targetRef : the object reference with which to 
+compare for equality, which may be null
+Returns: a predicate that tests if two arguments 
+are equal according to Objects.equals(Object, Object)
+```
+and(Predicate other) : Returns a composed predicate that represents a short-circuiting logical AND of this predicate and another.
+
+```
+default Predicate and(Predicate other)
+Returns a composed predicate that represents a 
+short-circuiting logical AND of this predicate and another.
+Parameters:
+other: a predicate that will be logically-ANDed with this predicate
+Returns : a composed predicate that represents the short-circuiting 
+logical AND of this predicate and the other predicate
+Throws: NullPointerException - if other is null
+```
+
+negate() : Returns a predicate that represents the logical negation of this predicate.
+
+```
+default Predicate negate()
+Returns:a predicate that represents the logical 
+negation of this predicate
+
+```
+
+or(Predicate other) : Returns a composed predicate that represents a short-circuiting logical OR of this predicate and another.
+```
+
+default Predicate or(Predicate other)
+Parameters:
+other : a predicate that will be logically-ORed with this predicate
+Returns:
+a composed predicate that represents the short-circuiting 
+logical OR of this predicate and the other predicate
+Throws : NullPointerException - if other is null
+
+```
+
+test(T t) : Evaluates this predicate on the given argument.boolean test(T t)
+
+```
+test(T t) 
+Parameters:
+t - the input argument
+Returns:
+true if the input argument matches the predicate, otherwise false
+```````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
 ### BinaryOperator<T>
 
 Represents an operation upon two operands of the same type, producing a result of the same type as the operands.
