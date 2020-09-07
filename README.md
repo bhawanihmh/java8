@@ -194,16 +194,24 @@ Returns: This method returns the function result which is of type R. <br>
 ### Predicate<T>
 Represents a predicate (Boolean-valued function) of one argument.
 The Predicate functional interface is a specialization of a Function that receives a generified value and returns a boolean. A typical use case of the Predicate lambda is to filter a collection of values:
-
+```
 List<String> names = Arrays.asList("Angela", "Aaron", "Bob", "Claire", "David");
  
 List<String> namesWithA = names.stream()
   .filter(name -> name.startsWith("A"))
   .collect(Collectors.toList());
+```
 
 ### BinaryOperator<T>
-Represents an operation upon two operands of the same type, producing a result of the same type as the operands.
 
+Represents an operation upon two operands of the same type, producing a result of the same type as the operands.
+One of the most interesting use cases of a BinaryOperator is a reduction operation. Suppose we want to aggregate a collection of integers in a sum of all values. With Stream API, we could do this using a collector, but a more generic way to do it would be to use the reduce method:
+
+```
+List<Integer> values = Arrays.asList(3, 5, 8, 9, 12);
+int sum = values.stream()
+  .reduce(0, (i1, i2) -> i1 + i2);
+```  
 ### Two-Arity Function Specializations
 To define lambdas with two arguments, we have to use additional interfaces that contain “Bi” keyword in their names: BiFunction, ToDoubleBiFunction, ToIntBiFunction, and ToLongBiFunction.
 
@@ -224,6 +232,22 @@ salaries.replaceAll((name, oldValue) ->
 ```
 ### UnaryOperator<T>
 Represents an operation on a single operand that produces a result of the same type as its operand.
+The UnaryOperator interface receives a single argument. One of its use cases in the Collections API is to replace all values in a list with some computed values of the same type:
+
+```
+List<String> names = Arrays.asList("bob", "josh", "megan");
+ 
+names.replaceAll(name -> name.toUpperCase());
+```
+
+Of course, instead of name -> name.toUpperCase(), you can simply use a method reference:
+
+```
+names.replaceAll(String::toUpperCase);
+```
+The reduce method receives an initial accumulator value and a BinaryOperator function. The arguments of this function are a pair of values of the same type, and a function itself contains a logic for joining them in a single value of the same type. Passed function must be associative, which means that the order of value aggregation does not matter, i.e. the following condition should hold:
+
+op.apply(a, op.apply(b, c)) == op.apply(op.apply(a, b), c)
 
 ## Lambda expressions
 Lambda expressions are used primarily to define inline implementation of a functional interface, i.e., an interface with a single method only.
