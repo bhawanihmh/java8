@@ -37,6 +37,98 @@ Java SE 8 supports the Server Name Indication (SNI) extension that extends the T
 ## Functional interfaces
 Functional interfaces have a single functionality to exhibit. For example, a Comparable interface with a single method ‘compareTo’ is used for comparison purpose. Java 8 has defined a lot of functional interfaces to be used extensively in lambda expressions. Following is the list of functional interfaces defined in java.util.Function package.
 
+The functional interface is a simple interface with only one abstract method. A lambda expression can be used through a functional interface in Java 8. We can declare our own/custom functional interface by defining the **Single Abstract Method (SAM)** in an interface.
+
+```
+
+@FunctionalInterface
+interface CustomFunctionalInterface {
+   void display();
+}
+public class FunctionInterfaceLambdaTest {
+   public static void main(String args[]) {
+      // Using Anonymous inner class
+      CustomFunctionalInterface test1 = new CustomFunctionalInterface() {
+         public void display() {
+            System.out.println("Display using Anonymous inner class");
+         }
+      };
+      test1.display();
+      // Using Lambda Expression
+      CustomFunctionalInterface test2 = () -> {    // lambda expression
+         System.out.println("Display using Lambda Expression");
+      };
+      test2.display();
+   }
+}
+
+// With Lambda
+
+// Create Functional Interface
+@FunctionalInterface
+public interface Calculator {
+   long calculate(long num1, long num2);
+} 
+
+// Lambda expression syntax.
+(Argument  part)  -> Body part 
+
+// Now we will instantiate our functional interface Calculator as following.
+//In the below lambda expression, number of arguments is two because the abstract method calculate has been defined with two arguments. 
+// To get the result, we will call the method of our functional interface.
+Calculator calc = (n1, n2) -> n1 + n2; 
+
+// Use of calc
+System.out.println(calc.calculate(30, 50)); 
+
+// Passing Functional Interface as Method Argument using Lambda Expression:
+public long process(Calculator calc) {
+    return calc.calculate(this.firstNum, this.secondNum);
+} 
+// Class
+public class MyNumber {
+    private long firstNum;
+    private long secondNum;
+    public MyNumber(long firstNum, long secondNum) {
+	   this.firstNum = firstNum;
+	   this.secondNum = secondNum;
+    }
+    public long process(Calculator calc) {
+       return calc.calculate(this.firstNum, this.secondNum);
+    }
+    //setters getters
+} 
+Calculator calc = (n1, n2) -> n1 + n2;
+for(MyNumber myNumber: list) {
+   System.out.println(myNumber.process(calc));
+} 
+for(MyNumber myNumber: list) {
+   System.out.println(myNumber.process((n1, n2) -> n1 * n2));
+} 
+for(MyNumber myNumber: list) {
+   System.out.println(myNumber.process((n1, n2) -> n1 / n2));
+}
+// Instantiate Functional Interface using Method Reference
+// Method reference invokes method using (::) sign. Suppose we have a class MyNumber and a static method add then we can call it using class name.
+MyNumber::add 
+//Utility Class
+public class Utility {
+    public static long add(long num1, long num2) {
+    	return num1 + num2;
+    }
+    public static long multiply(long num1, long num2) {
+    	return num1 * num2;
+    }  
+} 
+Calculator calc = Utility::add;
+System.out.println(calc.calculate(30, 50)); 
+for(MyNumber myNumber: list) {
+   Calculator calc = Utility::add;
+   System.out.println(myNumber.process(calc));
+} 
+
+```
+
 ### Consumer<T>
 Represents an operation that accepts a single input argument and returns no result.<br>
 Syntax: void accept(T t)<br>
