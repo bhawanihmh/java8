@@ -193,6 +193,13 @@ Returns: This method returns the function result which is of type R. <br>
 
 ### Predicate<T>
 Represents a predicate (Boolean-valued function) of one argument.
+The Predicate functional interface is a specialization of a Function that receives a generified value and returns a boolean. A typical use case of the Predicate lambda is to filter a collection of values:
+
+List<String> names = Arrays.asList("Angela", "Aaron", "Bob", "Claire", "David");
+ 
+List<String> namesWithA = names.stream()
+  .filter(name -> name.startsWith("A"))
+  .collect(Collectors.toList());
 
 ### BinaryOperator<T>
 Represents an operation upon two operands of the same type, producing a result of the same type as the operands.
