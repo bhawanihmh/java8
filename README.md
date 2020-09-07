@@ -132,7 +132,6 @@ for(MyNumber myNumber: list) {
 } 
 
 ```
-
 ### Consumer<T>
 Represents an operation that accepts a single input argument and returns no result.<br>
 Syntax: void accept(T t)<br>
@@ -194,8 +193,28 @@ Returns: This method returns the function result which is of type R. <br>
 
 ### Predicate<T>
 Represents a predicate (Boolean-valued function) of one argument.
+
 ### BinaryOperator<T>
 Represents an operation upon two operands of the same type, producing a result of the same type as the operands.
+
+### Two-Arity Function Specializations
+To define lambdas with two arguments, we have to use additional interfaces that contain “Bi” keyword in their names: BiFunction, ToDoubleBiFunction, ToIntBiFunction, and ToLongBiFunction.
+
+BiFunction has both arguments and a return type generified, while ToDoubleBiFunction and others allow you to return a primitive value.
+
+One of the typical examples of using this interface in the standard API is in the Map.replaceAll method, which allows replacing all values in a map with some computed value.
+
+Let's use a BiFunction implementation that receives a key and an old value to calculate a new value for the salary and return it.
+```
+Map<String, Integer> salaries = new HashMap<>();
+salaries.put("John", 40000);
+salaries.put("Freddy", 30000);
+salaries.put("Samuel", 50000);
+ 
+salaries.replaceAll((name, oldValue) -> 
+  name.equals("Freddy") ? oldValue : oldValue + 10000);
+
+```
 ### UnaryOperator<T>
 Represents an operation on a single operand that produces a result of the same type as its operand.
 
