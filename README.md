@@ -204,7 +204,10 @@ List<String> namesWithA = names.stream()
 The Functional Interface PREDICATE is defined in the java.util.Function package. It improves manageability of code, helps in unit-testing them separately, and contain some methods like:
 
 isEqual(Object targetRef) : Returns a predicate that tests if two arguments are equal according to Objects.equals(Object, Object).
+
 ```
+isEqual(Object targetRef)
+
 static  Predicate isEqual(Object targetRef)
 Returns a predicate that tests if two arguments are 
 equal according to Objects.equals(Object, Object).
@@ -214,10 +217,14 @@ targetRef : the object reference with which to
 compare for equality, which may be null
 Returns: a predicate that tests if two arguments 
 are equal according to Objects.equals(Object, Object)
+
 ```
+
 and(Predicate other) : Returns a composed predicate that represents a short-circuiting logical AND of this predicate and another.
 
 ```
+and(Predicate<? super T> other)
+
 default Predicate and(Predicate other)
 Returns a composed predicate that represents a 
 short-circuiting logical AND of this predicate and another.
@@ -231,6 +238,8 @@ Throws: NullPointerException - if other is null
 negate() : Returns a predicate that represents the logical negation of this predicate.
 
 ```
+negate()
+
 default Predicate negate()
 Returns:a predicate that represents the logical 
 negation of this predicate
@@ -238,7 +247,9 @@ negation of this predicate
 ```
 
 or(Predicate other) : Returns a composed predicate that represents a short-circuiting logical OR of this predicate and another.
+
 ```
+or(Predicate<? super T> other)
 
 default Predicate or(Predicate other)
 Parameters:
@@ -254,6 +265,7 @@ test(T t) : Evaluates this predicate on the given argument.boolean test(T t)
 
 ```
 test(T t) 
+
 Parameters:
 t - the input argument
 Returns:
